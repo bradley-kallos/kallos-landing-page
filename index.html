@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kallos</title>
+  <link rel="icon" type="image/jpg" href="logos/primary logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Calendly -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:     #0B4022;
+      --green-mid: #155c32;
+      --green-lt:  #e8f0eb;
+      --cream:     #f5f0e8;
+      --white:     #ffffff;
+      --gray:      #6b7280;
+      --gray-lt:   #f4f4f5;
+      --border:    #e4e4e7;
+      --text:      #111827;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover { background: var(--green-mid); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 24px 64px;
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-block;
+      background: var(--green-lt);
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 32px;
+    }
+
+    .hero h1 .accent {
+      color: var(--green);
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero-btn:hover {
+      background: var(--green-mid);
+      transform: translateY(-1px);
+    }
+
+    .hero-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      padding: 72px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      color: var(--gray);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      max-width: 520px;
+    }
+
+    /* ── CALENDLY ── */
+    .calendly-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 32px rgba(11,64,34,0.07);
+    }
+
+    .calendly-inline-widget {
+      min-width: 320px;
+      height: 700px;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-bg {
+      background: var(--gray-lt);
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .testimonial-card {
+      min-width: 100%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .stars {
+      display: flex;
+      gap: 4px;
+    }
+
+    .stars svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--green);
+    }
+
+    .testimonial-text {
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    .testimonial-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .testimonial-author strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .testimonial-author span {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .case-study-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border: 2px solid var(--green);
+      color: var(--green);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .case-study-btn:hover {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .case-study-btn svg {
+      width: 13px;
+      height: 13px;
+      transition: transform 0.2s;
+    }
+
+    .case-study-btn:hover svg { transform: translateX(2px); }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d1d5db;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      border: none;
+      padding: 0;
+    }
+
+    .dot.active {
+      background: var(--green);
+      transform: scale(1.5);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--green);
+      color: rgba(255,255,255,0.6);
+      padding: 40px 24px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    footer .footer-logo {
+      height: 28px;
+      width: auto;
+      margin-bottom: 16px;
+      opacity: 0.9;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer .footer-logo-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 16px;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── TABLET+ ── */
+    @media (min-width: 640px) {
+      nav { padding: 0 48px; }
+      .hero { padding: 96px 48px 80px; }
+      .section { padding: 96px 48px; }
+      .testimonial-card { padding: 52px 56px; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero { padding: 120px 32px 96px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="logos/green logo trans.png" alt="Kallos"
+           onerror="this.style.display='none'; document.getElementById('nav-text').style.display='block';" />
+      <span id="nav-text" class="logo-text" style="display:none;">Kallos</span>
+    </div>
+    <a href="#book" class="nav-cta">Book a Call</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="pill reveal">Premium Social Media</div>
+    <h1 class="reveal reveal-delay-1">
+      We turn <span class="accent">already-successful</span> local businesses into brands people <span class="accent">trust</span> and recognize.
+    </h1>
+    <a href="#book" class="hero-btn reveal reveal-delay-2">
+      Book a Free Strategy Call
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </a>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CALENDLY -->
+  <div id="book">
+    <div class="section">
+      <p class="section-label reveal">Let's Talk</p>
+      <h2 class="section-title reveal reveal-delay-1">Book a Free Strategy Call</h2>
+      <p class="section-sub reveal reveal-delay-2">Pick a time that works for you and let's talk about how Kallos can grow your brand.</p>
+      <div class="calendly-wrap reveal reveal-delay-3">
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/bradley-kallos?hide_gdpr_banner=1&background_color=ffffff&text_color=111827&primary_color=0B4022"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- TESTIMONIALS -->
+  <div class="testimonials-bg">
+    <div class="section">
+      <p class="section-label reveal">Client Stories</p>
+      <h2 class="section-title reveal reveal-delay-1">What Our Partners Say</h2>
+      <p class="section-sub reveal reveal-delay-2">Real results from real business owners who trusted us with their brand.</p>
+
+      <div class="carousel reveal reveal-delay-3" id="carousel">
+        <div class="carousel-track" id="track">
+
+          <!-- Card 1 -->
+          <div class="testimonial-card">
+            <div class="stars">
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+            </div>
+            <p class="testimonial-text">"Bradley and his team have been fantastic. We work with them primarily for our social media and content production. They are great at what they do, and are exceptional at taking feedback and adjusting on the fly. Glad to have a great team and glad to be partnered with Kallos."</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-author">
+                <strong>Ross</strong>
+                <span>CEO, Overhead Door Company of Wilmington</span>
+              </div>
+              <a href="https://kallosproduction.com/portfolio/ohd" target="_blank" rel="noopener" class="case-study-btn">
+                View Case Study
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="testimonial-card">
+            <div class="stars">
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+            </div>
+            <p class="testimonial-text">"The Kallos team are great! If you need help getting visibility and pushing creative ideas into reality -- partner with Kallos! They are humble, diligent and easy to work with. You won't be disappointed."</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-author">
+                <strong>Ross V</strong>
+                <span>Marketing Director, Fortner Homes</span>
+              </div>
+              <a href="https://kallosproduction.com/portfolio/fortner-homes" target="_blank" rel="noopener" class="case-study-btn">
+                View Case Study
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="testimonial-card">
+            <div class="stars">
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 6.26H18l-4.7 3.57 1.79 6.17L10 13.27l-5.09 3.73 1.79-6.17L2 7.26h5.61z"/></svg>
+            </div>
+            <p class="testimonial-text">"Working with Bradley was amazing, it was extremely professional, and even so, Kallos Production made us feel comfortable and relaxed throughout the whole process. The final product was beautiful and exactly what we were looking for. And this was no accident as Kallos Productions worked extremely hard on the scripts, prep, and on the shoot day itself to create the product that fulfilled our vision perfectly! I highly recommend Kallos, and our company Veritas will be continuing our work with them!"</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-author">
+                <strong>Caleb</strong>
+                <span>Project Manager, Veritas</span>
+              </div>
+              <a href="https://kallosproduction.com/portfolio/veritas" target="_blank" rel="noopener" class="case-study-btn">
+                View Case Study
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="carousel-dots" id="dots"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="logos/off-white logo trans.png" alt="Kallos" class="footer-logo"
+         onerror="this.style.display='none'; document.getElementById('footer-text').style.display='block';" />
+    <div id="footer-text" class="footer-logo-text" style="display:none;">Kallos</div>
+    <p>&copy; <span id="year"></span> Kallos Production. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Calendly init
+    window.addEventListener('load', function () {
+      if (window.Calendly) Calendly.initInlineWidgets();
+    });
+
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── Carousel ──
+    const track  = document.getElementById('track');
+    const dotsEl = document.getElementById('dots');
+    const cards  = Array.from(track.children);
+    let current  = 0;
+    let timer;
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      cards.forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'dot' + (i === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', `Testimonial ${i + 1}`);
+        btn.addEventListener('click', () => { goTo(i); resetAuto(); });
+        dotsEl.appendChild(btn);
+      });
+    }
+
+    function goTo(index) {
+      current = (index + cards.length) % cards.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dotsEl.querySelectorAll('.dot').forEach((d, i) =>
+        d.classList.toggle('active', i === current)
+      );
+    }
+
+    function startAuto() {
+      if (cards.length <= 1) return;
+      timer = setInterval(() => goTo(current + 1), 5500);
+    }
+
+    function resetAuto() { clearInterval(timer); startAuto(); }
+
+    buildDots();
+    startAuto();
+
+    const carousel = document.getElementById('carousel');
+    carousel.addEventListener('mouseenter', () => clearInterval(timer));
+    carousel.addEventListener('mouseleave', startAuto);
+
+    // Touch swipe
+    let startX = 0;
+    carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; clearInterval(timer); });
+    carousel.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+      startAuto();
+    });
+  </script>
+</body>
+</html>
