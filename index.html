@@ -116,6 +116,34 @@
       color: var(--green);
     }
 
+    .hero h1 .underline {
+      position: relative;
+      display: inline;
+      color: var(--green);
+    }
+
+    .hero h1 .underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 3px;
+      background: var(--green);
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hero h1 .underline.animate::after {
+      transform: scaleX(1);
+    }
+
+    .hero h1 .underline:nth-of-type(1).animate::after { transition-delay: 0.2s; }
+    .hero h1 .underline:nth-of-type(2).animate::after { transition-delay: 0.5s; }
+    .hero h1 .underline:nth-of-type(3).animate::after { transition-delay: 0.8s; }
+
     .hero-pretag {
       font-size: 0.8rem;
       font-weight: 600;
@@ -393,7 +421,7 @@
   <!-- HERO -->
   <section class="hero">
     <h1 class="reveal">
-      We turn <span class="accent">already-successful</span> local businesses into brands people <span class="accent">trust</span> and recognize.
+      We turn <span class="accent underline">home service companies</span> into brands people <span class="accent underline">recognize</span> and <span class="accent underline">trust</span>.
     </h1>
     <p class="hero-pretag reveal reveal-delay-1">Find out if we can do this for your business</p>
     <a href="#book" class="hero-btn reveal reveal-delay-2">
@@ -426,8 +454,8 @@
   <!-- TESTIMONIALS -->
   <div class="testimonials-bg">
     <div class="section">
-      <p class="section-label reveal">Client Stories</p>
-      <h2 class="section-title reveal reveal-delay-1">What Our Partners Say</h2>
+      <p class="section-label reveal">Testimonials</p>
+      <h2 class="section-title reveal reveal-delay-1">What Our Clients Say</h2>
       <p class="section-sub reveal reveal-delay-2">Real results from real business owners who trusted us with their brand.</p>
 
       <div class="carousel reveal reveal-delay-3" id="carousel">
@@ -549,6 +577,18 @@
     }, { threshold: 0.12 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Underline animation on h1
+    const h1 = document.querySelector('.hero h1');
+    const underlineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.underline').forEach(el => el.classList.add('animate'));
+          underlineObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    if (h1) underlineObserver.observe(h1);
 
     // ── Carousel ──
     const track  = document.getElementById('track');
